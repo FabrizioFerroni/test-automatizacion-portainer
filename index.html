@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Prueba</title>
+    <!-- Tailwind CSS via CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        transition: background-color 0.5s;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 text-gray-900 flex items-center justify-center min-h-screen"
+  >
+    <div class="text-center">
+      <h1 class="text-4xl font-bold mb-6">Bienvenido a la Página de Prueba</h1>
+      <p class="text-lg mb-4">
+        Esta es una página estilizada con Tailwind CSS y tiene un poco de
+        interactividad con JavaScript.
+      </p>
+      <img
+        src="/img/300.png"
+        alt="Imagen de prueba"
+        class="mx-auto mb-4 rounded shadow-lg"
+      />
+      <button
+        id="colorButton"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+      >
+        Cambiar Color de Fondo
+      </button>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/js/app.js"></script>
+  </body>
+</html>
