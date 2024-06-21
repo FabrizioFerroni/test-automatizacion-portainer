@@ -14,7 +14,7 @@ jobs:
     env:
       GITHUB_REF: ${{ github.ref }}
       DOCKER_REGISTRY: ghcr.io
-      DOCKER_IMAGE: FabrizioFerroni/app_test_ga
+      DOCKER_IMAGE: fabrizioferroni/app-test-ga
 
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +48,6 @@ jobs:
           portainer-host: ${{ secrets.PORTAINER_HOST }}
           username: ${{ secrets.PORTAINER_USERNAME }}
           password: ${{ secrets.PORTAINER_PASSWORD }}
-          stack-name: "app_test_ga"
+          stack-name: "app-test-ga"
           stack-definition: "stack-definition.yml"
           image: ${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}
