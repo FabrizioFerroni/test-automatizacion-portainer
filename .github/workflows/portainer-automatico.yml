@@ -1,7 +1,13 @@
-name: Test action
-on: [push]
+name: Deploy to portainer
+
+on:
+  push:
+    branches:
+      - dev
+
 jobs:
-  test:
+  deploy:
+    name: Deploy to portainer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
