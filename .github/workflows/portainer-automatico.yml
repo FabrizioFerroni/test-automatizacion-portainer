@@ -25,3 +25,5 @@ jobs:
           prune: false
           pullImage: false
           verifySSL: false
+      - name: Upate compose file
+        run: sed -i 's/nginx:latest/nginx:1.25-alpine/g' docker-compose.yml

@@ -1,11 +1,6 @@
 version: "3"
 services:
-  web:
-    container_name: app_test_ga
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  app:
+    image: nginx:1.25-alpine
     ports:
-      - "8080:80"
-    volumes:
-      - ./public:/usr/share/nginx/html/public
+      - 10000:80
