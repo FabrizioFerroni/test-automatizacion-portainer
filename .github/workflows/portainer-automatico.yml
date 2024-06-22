@@ -9,13 +9,43 @@ jobs:
   deploy:
     name: Deploy to portainer
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    timeout-minutes: 20
 
-      # Create / update
-      - uses: rrennoir/portainer-stack@main
+    env:
+      GITHUB_REF: ${{ github.ref }}
+      DOCKER_REGISTRY: ghcr.io
+      DOCKER_IMAGE: fabrizioferroni/app-test-ga
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Creating envs
+        run: |
+          echo "IMAGE_TAG=sha-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_URI=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}" >> $GITHUB_ENV
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
-          portainerUrl: ${{ secrets.PORTAINER_HOST}}
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build docker image and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest
+
+      - name: Sleep for 10 seconds
+        run: sleep 10s
+        shell: bash
+
+      - name: Deploy stack to Portainer
+        uses: rrennoir/portainer-stack@v2
+        with:
+          portainerUrl: ${{ secrets.PORTAINER_HOST }}
           portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
           portainerEndpointId: 2
           stackName: "app-test-ga"
@@ -25,5 +55,6 @@ jobs:
           prune: false
           pullImage: false
           verifySSL: false
+
       - name: Upate compose file
-        run: sed -i 's/nginx:latest/nginx:1.25-alpine/g' docker-compose.yml
+        run: sed -i 's/nginx:latest/${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest/g' docker-compose.yml

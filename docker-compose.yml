@@ -4,3 +4,10 @@ services:
     image: nginx:1.25-alpine
     ports:
       - 10000:80
+    volumes:
+      - ./public:/usr/share/nginx/html/public
+    networks:
+      - frontend
+
+networks:
+  frontend:
