@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to portainer
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy to portainer
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -17,6 +17,12 @@ jobs:
       DOCKER_IMAGE: fabrizioferroni/app-test-ga
 
     steps:
+      - name: Clean up npm cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          action: delete
       - uses: actions/checkout@v2
 
       - name: Creating envs
