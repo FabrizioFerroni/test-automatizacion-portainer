@@ -16,7 +16,7 @@ jobs:
       - uses: rrennoir/portainer-stack@main
         with:
           portainerUrl: ${{ secrets.PORTAINER_HOST}}
-          portainerApiKey: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
+          portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
           portainerEndpointId: 2
           stackName: "app-test-ga"
           stackType: 2
