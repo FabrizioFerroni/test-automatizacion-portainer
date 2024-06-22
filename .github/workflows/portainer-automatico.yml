@@ -20,7 +20,7 @@ jobs:
           portainerEndpointId: 2
           stackName: "app-test-ga"
           stackType: 2
-          composeFile: stack-definition.yml
+          composeFile: docker-compose.yml
           delete: false
           prune: false
           pullImage: false
