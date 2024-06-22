@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.PORTAINER_USERNAME }}
           password: ${{ secrets.PORTAINER_PASSWORD }}
           environment_id: 2
-          stack-name: "app-test-ga"
+          stack_name: "app-test-ga"
           stack_file_path: "stack-definition.yml"
           mustache_variables: '{"image": "${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}"}'
           pull_image: true
