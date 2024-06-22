@@ -4,7 +4,7 @@ services:
     container_name: app_test_ga
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - "8080:80"
     volumes:
