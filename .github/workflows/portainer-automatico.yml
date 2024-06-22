@@ -23,6 +23,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           action: delete
+
       - uses: actions/checkout@v2
 
       - name: Creating envs
@@ -49,11 +50,14 @@ jobs:
         shell: bash
 
       - name: Deploy stack to Portainer
-        uses: carlrygart/portainer-stack-deploy@v1
+        uses: nevcodia/portainer-stack-deployment@v2.19.3
         with:
-          portainer-host: ${{ secrets.PORTAINER_HOST }}
+          url: ${{ secrets.PORTAINER_HOST }}
           username: ${{ secrets.PORTAINER_USERNAME }}
           password: ${{ secrets.PORTAINER_PASSWORD }}
+          environment_id: 2
           stack-name: "app-test-ga"
-          stack-definition: "stack-definition.yml"
-          image: ${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}
+          stack_file_path: "stack-definition.yml"
+          mustache_variables: '{"image": "${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}"}'
+          pull_image: true
+          prune: true
