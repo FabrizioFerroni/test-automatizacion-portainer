@@ -1,12 +1,12 @@
 version: "3"
 services:
   app:
-    image: nginx:1.25-alpine
+    image: ghcr.io/fabrizioferroni/app-test-ga:latest
     ports:
       - 10000:80
     restart: always
     volumes:
-      - ./public:/usr/share/nginx/html/public
+      - /public:/usr/share/nginx/html/public
     networks:
       - frontend
 

@@ -40,10 +40,11 @@ jobs:
 
       - name: Make image public
         run: |
+          PATCH_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.DOCKER_IMAGE }}/versions/${{ env.VERSION_ID }}"
           curl -X PATCH \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: Bearer ${{ secrets.GHCR_TOKEN }}" \
-          https://api.github.com/user/packages/container/${{ env.DOCKER_IMAGE }}/versions/latest \
+          $PATCH_URL \
           -d '{"visibility":"public"}'
 
       - name: Sleep for 10 seconds
