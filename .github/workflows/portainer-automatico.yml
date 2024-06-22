@@ -57,7 +57,7 @@ jobs:
           verifySSL: false
 
       - name: Update compose file
-        run: sed -i 's|nginx:1.25-alpine|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
+        run: sed -i 's|nginx:latest|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
 
         # Create / update with prune and pull image
       - name: Deploy stack to Portainer new img
@@ -71,4 +71,16 @@ jobs:
           composeFile: docker-compose.yml
           prune: true
           pullImage: true
+          verifySSL: false
+
+      - name: Deploy stack to Portainer delete img
+        uses: rrennoir/portainer-stack@main
+        with:
+          portainerUrl: ${{ secrets.PORTAINER_HOST }}
+          portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
+          portainerEndpointId: 2
+          stackName: "app-test-ga"
+          stackType: 2
+          composeFile: docker-compose.yml
+          delete: true
           verifySSL: false
