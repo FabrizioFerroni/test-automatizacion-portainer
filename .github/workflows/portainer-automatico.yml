@@ -57,7 +57,7 @@ jobs:
           verifySSL: false
 
       - name: Update compose file
-        run: sed -i 's| nginx:1.25-alpine|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
+        run: sed -i 's|nginx:1.25-alpine|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
 
         # Create / update with prune and pull image
       - name: Deploy stack to Portainer new img
