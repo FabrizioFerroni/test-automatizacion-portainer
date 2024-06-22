@@ -42,9 +42,6 @@ jobs:
         run: sleep 10s
         shell: bash
 
-      - name: Update compose file
-        run: sed -i 's|nginx:latest|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
-
       - name: Deploy stack to Portainer
         uses: rrennoir/portainer-stack@v2
         with:
@@ -57,4 +54,20 @@ jobs:
           delete: false
           prune: false
           pullImage: false
+          verifySSL: false
+
+      - name: Update compose file
+        run: sed -i 's|nginx:latest|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
+
+        # Create / update with prune and pull image
+      - uses: rrennoir/portainer-stack@main
+        with:
+          portainerUrl: ${{ secrets.PORTAINER_HOST }}
+          portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
+          portainerEndpointId: 2
+          stackName: "app-test-ga"
+          stackType: 2
+          composeFile: docker-compose.yml
+          prune: true
+          pullImage: true
           verifySSL: false
