@@ -1,7 +1,13 @@
-name: Test action
-on: [push]
+name: Deploy to portainer
+
+on:
+  push:
+    branches:
+      - dev
+
 jobs:
-  test:
+  deploy:
+    name: Deploy to portainer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -9,7 +15,7 @@ jobs:
       # Create / update
       - uses: rrennoir/portainer-stack@main
         with:
-          portainerUrl: ${{ secrets.PORTAINER_URL }}
+          portainerUrl: ${{ secrets.PORTAINER_HOST}}
           portainerApiKey: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
           portainerEndpointId: 2
           stackName: "app-test-ga"
@@ -18,28 +24,4 @@ jobs:
           delete: false
           prune: false
           pullImage: false
-          verifySSL: false
-
-      # Create / update with prune and pull image
-      - uses: rrennoir/portainer-stack@main
-        with:
-          portainerUrl: ${{ secrets.PORTAINER_URL }}
-          portainerApiKey: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
-          portainerEndpointId: 2
-          stackName: "app-test-ga"
-          stackType: 2
-          composeFile: stack-definition.yml
-          prune: true
-          pullImage: true
-          verifySSL: false
-
-      # Delete
-      - uses: rrennoir/portainer-stack@main
-        with:
-          portainerUrl: ${{ secrets.PORTAINER_URL }}
-          portainerApiKey: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
-          portainerEndpointId: 2
-          stackName: "app-test-ga"
-          composeFile: stack-definition.yml
-          delete: true
           verifySSL: false
