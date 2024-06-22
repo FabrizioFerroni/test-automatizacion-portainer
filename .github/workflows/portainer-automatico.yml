@@ -17,13 +17,6 @@ jobs:
       DOCKER_IMAGE: fabrizioferroni/app-test-ga
 
     steps:
-      - name: Clean up npm cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          action: delete
-
       - uses: actions/checkout@v2
 
       - name: Creating envs
@@ -50,14 +43,25 @@ jobs:
         shell: bash
 
       - name: Deploy stack to Portainer
-        uses: nevcodia/portainer-stack-deployment@v2.19.3
+        uses: rrennoir/portainer-stack@v2
         with:
-          url: ${{ secrets.PORTAINER_HOST }}
-          username: ${{ secrets.PORTAINER_USERNAME }}
-          password: ${{ secrets.PORTAINER_PASSWORD }}
-          environment_id: 2
-          stack_name: "app-test-ga"
-          stack_file_path: "stack-definition.yml"
-          mustache_variables: '{"image": "${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}"}'
-          pull_image: true
-          prune: true
+          portainerUrl: ${{ secrets.PORTAINER_HOST }}
+          portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
+          portainerEndpointId: 2
+          stackName: "app-test-ga"
+          stackType: 2
+          composeFile: stack-definition.yml
+          verifySSL: false
+          pullImage: false
+          prune: false
+        # uses: nevcodia/portainer-stack-deployment@v2.19.3
+        # with:
+        #   url: ${{ secrets.PORTAINER_HOST }}
+        #   username: ${{ secrets.PORTAINER_USERNAME }}
+        #   password: ${{ secrets.PORTAINER_PASSWORD }}
+        #   environment_id: 2
+        #   stack_name: "app-test-ga"
+        #   stack_file_path: "stack-definition.yml"
+        #   mustache_variables: '{"image": "${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }}"}'
+        #   pull_image: true
+        #   prune: true
