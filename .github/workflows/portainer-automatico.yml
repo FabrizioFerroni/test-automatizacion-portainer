@@ -57,23 +57,23 @@ jobs:
           pullImage: false
           verifySSL: false
 
-      - name: Update compose file
-        run: sed -i 's|nginx:latest|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
+      # - name: Update compose file
+      #   run: sed -i 's|nginx:latest|${{ env.DOCKER_IMAGE_URI }}:${{ env.IMAGE_TAG }},${{ env.DOCKER_IMAGE_URI }}:latest|g' docker-compose.yml
 
-      - name: Sleep for 10 seconds
-        run: sleep 10s
-        shell: bash
+      # - name: Sleep for 10 seconds
+      #   run: sleep 10s
+      #   shell: bash
 
-        # Create / update with prune and pull image
-      - name: Deploy stack to Portainer new img
-        uses: rrennoir/portainer-stack@main
-        with:
-          portainerUrl: ${{ secrets.PORTAINER_HOST }}
-          portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
-          portainerEndpointId: 2
-          stackName: "app-test-ga"
-          stackType: 2
-          composeFile: docker-compose.yml
-          prune: true
-          pullImage: true
-          verifySSL: false
+      #   # Create / update with prune and pull image
+      # - name: Deploy stack to Portainer new img
+      #   uses: rrennoir/portainer-stack@main
+      #   with:
+      #     portainerUrl: ${{ secrets.PORTAINER_HOST }}
+      #     portainerApiKey: ${{ secrets.PORTAINER_ACCES_TOKEN }}
+      #     portainerEndpointId: 2
+      #     stackName: "app-test-ga"
+      #     stackType: 2
+      #     composeFile: docker-compose.yml
+      #     prune: true
+      #     pullImage: true
+      #     verifySSL: false

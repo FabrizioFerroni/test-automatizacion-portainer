@@ -6,7 +6,7 @@ services:
       - 8080:80
     restart: always
     volumes:
-      - /public:/usr/share/nginx/html/public
+      - /public:/usr/share/nginx/html/assets/
     networks:
       - frontend
 
