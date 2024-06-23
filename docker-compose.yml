@@ -3,7 +3,7 @@ services:
   app:
     image: ghcr.io/fabrizioferroni/app-test-ga:latest
     ports:
-      - 10000:80
+      - 8080:80
     restart: always
     volumes:
       - /public:/usr/share/nginx/html/public
