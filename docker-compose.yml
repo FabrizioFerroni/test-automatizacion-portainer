@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - /public:/usr/share/nginx/html/public
-      - nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - frontend
 
