@@ -1,0 +1,16 @@
+.
+├── docker-compose.yml
+├── Dockerfile
+├── index.html
+├── mapa.txt
+├── nginx.conf
+├── public
+│   ├── img
+│   │   ├── 300.png
+│   │   └── favicon.ico
+│   └── js
+│       └── app.js
+├── README.md
+└── stack-definition.yml
+
+4 directories, 10 files
