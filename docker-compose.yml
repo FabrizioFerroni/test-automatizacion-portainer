@@ -6,7 +6,8 @@ services:
       - 8080:80
     restart: always
     volumes:
-      - /assets/:/usr/share/nginx/html/assets/
+      - /public:/usr/share/nginx/html/public
+    command: sh -c "mv /usr/share/nginx/html/img/* /usr/share/nginx/html/public/img/ && mv /usr/share/nginx/html/js/* /usr/share/nginx/html/public/js/"
     networks:
       - frontend
 
