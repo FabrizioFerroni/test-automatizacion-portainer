@@ -40,7 +40,7 @@ La aplicación es una página web simple que:
 1. Clona el repositorio:
 
    ```bash
-   git clone [https://github.com/FabrizioFerroni/test-automatizacion-portainer](https://github.com/FabrizioFerroni/test-automatizacion-portainer) portainer-automatizacion
+   git clone https://github.com/FabrizioFerroni/test-automatizacion-portainer portainer-automatizacion
    cd portainer-automatizacion
    ```
 
